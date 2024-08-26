@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>상세보기</h1>
+    <p th:text="${book.title}"></p>
+    <p th:text="${book.author}"></p>
+    <p th:text="${book.rentyn}"></p>
+    <p th:text="${book.delyn}"></p>
+    <p th:text="${book.regdate}"></p>
+
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+    </div>
+
+    <!-- 
+    1. 버튼을 클릭 하면 /book/delete
+    2. 컨트롤러 작성
+    3. 서비스, 매퍼 작성
+    4. 매퍼 xml파일에 쿼리 정의
+    5. 테스트
+    6. 결과 출력
+    -->
+    <button th:onclick="|location.href='@{/book/delete(b_no=${book.b_no})}'|">삭제</button>
+    
+
+
+</body>
+</html>

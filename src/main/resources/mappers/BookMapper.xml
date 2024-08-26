@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo10.mapper.BookMapper">
+
+    <!-- selectTime --> 
+    <select id="selectTime">
+        select sysdate from dual
+    </select>  
+
+    <!-- selectBookList -->
+    <select id="selectBookList" resultType="BookDto">
+        select * from tb_book order by b_no desc
+    </select>
+
+    <!-- selectBook --> 
+
+    <select id="selectBook" resultType="BookDto">
+        select * from tb_book where b_no = #{b_no}
+    </select>
+</mapper>
