@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        // 저장된 쿠키값 읽어오기
+        function getCookie(name) {
+            // 쿠키 문자열을 "; "로 나눕니다. -> 여러개의 쿠키를 배열로 저장
+            const cookies = document.cookie.split('; ');
+            // 각 쿠키를 순회하면서 이름과 일치하는 쿠키를 찾습니다.
+            for (let cookie of cookies) {
+                // 키와값을 분리 시켜서 변수에 저장
+                const [cookieName, cookieValue] = cookie.split('=');
+                // 쿠키 이름이 일치하면 값을 반환합니다.
+                if (cookieName === name) {
+                    return decodeURIComponent(cookieValue);
+                }
+            }
+            // 쿠키가 없으면 null을 반환합니다.
+            return null;
+        }
+
+        // 화면이 로딩된 이후 실행
+        window.addEventListener('load', function(){
+            // 쿠키값을 가지고 오기
+            // 저장된 아이디값 조회
+            let value = getCookie('saveId');
+            console.log(value);
+
+            // 저장된 아이디가 있으면
+            if(value != null){
+                // div : innerHTML
+                // input : value
+
+                // 아이디를 출력
+                userId.value = value;
+                // 체크박스에 체크
+                chkIdSave.checked = true;
+            }
+        })
+    </script>
+</head>
+<body>
+    /cookie
+    <div id="box"></div>
+
+    <!--서버에 전달 하기 위해서 form으로 감싸야하고, name속성이 있어야함!!!!!-->
+    <form action="/loginAction">
+
+        <!--text필드는 값이 있던없던 서버로 전달-->
+        아이디 <input type="text" name="userId" id="userId"><br>
+        <!--체크박스는 선택된 경우에만 서버로 전달-->
+        <input type="checkbox" name="chkIdSave" value="1" id="chkIdSave" >아이디 저장하기
+        <button>로그인</button>
+    </form>
+</body>
+</html>
