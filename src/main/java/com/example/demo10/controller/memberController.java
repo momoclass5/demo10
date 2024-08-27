@@ -72,7 +72,7 @@ public class memberController {
     @PostMapping("/loginAction")
     public String postMethodName(MemberDto member, @RequestParam(name = "chkIdSave", required = false) String chkIdSave,
             HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-
+        // ✨파라메터로 HttpSession 을 받으면 jseSessionId값이 쿠키에 전달됩니다
         log.info("id : " + member.getId());
         log.info("pw : " + member.getPw());
         log.info("chkIdSave : " + chkIdSave);
@@ -97,9 +97,31 @@ public class memberController {
         // 로그인 성공이면 - 도서목록(/)
         MemberDto loginMember = service.login(member);
         if (loginMember != null) {
+            // 세션영역에 데이터 추가
+            // 내장객체
+            // session : 로그인시 이용, 브라우져에 쿠키에 저장된 세션
+            // jsesessionid 라는 이름으로 쿠키가 생성되어지고 요청할때마다 쿠키를 서버에 전달함
+            // reqeust : Model 에 데이터를 추가 하게 되면 request 영역에 저장
             session.setAttribute("loginId", loginMember.getId());
             session.setAttribute("loginName", loginMember.getName());
-            return "/";
+
+            // 세션의 저장된 값을 반환
+            session.getAttribute("loginId");
+            // 화면(html)의 경로(주소)를 반환
+            // ✨ 서버에서 서버를 호출는 방식
+            // 서버에서 서버의 다른 경로를 요청하는 방식
+            // 1. forward
+            // - 서버에서 처리
+            // - 요청 주소가 변경되지 않음
+            // 2. redirect
+            // - 웹 브라우저로 redirect 요청을 보남
+            // - 웹 브라우저에서 다시 경로를 호출
+            // - 요청 주소가 변경 됨
+            //
+            // 요청방식이 달라지면 forward시 오류가 발생
+            // /loginAction이 post 방식으로 요청 되었기 때문에 /로 forward 시 오류가 발생
+            // return "redirect:/";
+            return "redirect:/";
         }
         // 실패이면 로그인페이지로 이동
         // 템플릿 경로에 있는 html문서를 보여줌
@@ -107,6 +129,14 @@ public class memberController {
         model.addAttribute("msg", "아이디 비밀번호를 확인해주세요");
         return "/login";
 
+    }
+
+    @GetMapping("/logoutAction")
+    public String getMethodName(HttpSession session) {
+        // 세션만료처리 = 로그아웃
+        session.invalidate();
+
+        return "redirect:/member/login";
     }
 
 }
