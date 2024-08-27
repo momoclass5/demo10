@@ -46,6 +46,8 @@ public class CookieController {
             // if("1".equals(chkSaveId)){
             cookie.setMaxAge(0);
         }
+
+        // 응답객체에 쿠키를 추가
         response.addCookie(cookie);
         return "cookie";
     }

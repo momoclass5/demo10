@@ -19,7 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <script src="/js/common.js"></script>
+    <script src="/js/login.js"></script>
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 
 <body class="bg-gradient-primary">
@@ -41,24 +43,58 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <!--
+                                        ✨ method : 서버의 요청 방식을 지정
+                                            get : 주소표시줄에 데이터를 가지고 감
+                                                    리스트를 호출 데이터를 조회
+
+                                            post : 바디 영역에 데이터를 가지고 감
+                                                    입력, 로그인시 사용되는 방식
+
+                                        ✨ action : 서버의 요청주소
+                                        ✨ name : 자바스크립트에서 폼을 선택 할때 이름속성으로 선택
+
+                                    -->
+                                    <form class="user" method="post" action="/member/loginAction"
+                                            name="form_login">
+                                        <div th:text="${msg}" class="msgbox"></div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <!--
+                                            
+                                            ? name속성값 = value속성값 & ....
+                                            
+                                            Dto객체가 가지고 있는 필드명과 name속성의 값이 일치 하면 데이터를 넣어줌!!!!
+                                            
+                                            -->
+                                            <input type="text" class="form-control form-control-user"
+                                                id="id" aria-describedby="emailHelp"
+                                                name="id"
+                                                placeholder="아이디">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="pw" placeholder="비밀번호"
+                                                name="pw"
+                                                >
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <!-- 체크된 상태에만 값이 전달!!!!!
+                                                    체크후 로그인 버튼을 클릭 하면 서버에 값이 전달
+                                                    체카안하면 전달 안됨 
+                                                -->
+                                                <input type="checkbox" class="custom-control-input" id="chkIdSave"
+                                                    name="chkIdSave"
+                                                    value="1"
+                                                >
+                                                <label class="custom-control-label" for="chkIdSave">아이디 저장</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                        
+                                        <!--
+                                        링크에서 스크립트를 사용하는 방법
+                                        -->
+                                        <a href="javascript:fn_login()" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </a>
                                         <hr>
@@ -68,6 +104,8 @@
                                         <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a>
+
+
                                     </form>
                                     <hr>
                                     <div class="text-center">
