@@ -12,6 +12,16 @@
             margin: 0 auto;
         }
     </style>
+    <script src="/js/common.js"></script>
+    <script>
+        window.addEventListener('load', function(){
+            let saveId = getCookie("saveId");
+            if(saveId != null){
+                id.value = saveId;
+                chkIdSave.checked = true;
+            }
+        });
+    </script>
 </head>
 <body>
     <!--
@@ -19,17 +29,34 @@
     /newLogin - get
     /newLoginAction - post
     -->
-    <form action="">
+    <form action="/newLoginAction" method="post" name="loginForm">
     <div class="loginbox">
         <h1>로그인</h1>
-        
         <p>
-        <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock"
-            placeholder="아이디"
-            name="id">
+            <div th:text="${msg}"></div>
+        </p> 
+        <p>
+        <!--id : 화면에서 요소를 선택하기 위해
+        name : 서버에 값을 전달
+        value : 서버에 전달 되는 값-->
+        <input type="text" class="form-control" aria-describedby="passwordHelpBlock"
+            placeholder="아이디" id="id" name="id">
         </p>
-
-        <button type="button" class="btn btn-primary form-control">로그인</button>
+        <p>
+            <input type="password" class="form-control" aria-describedby="passwordHelpBlock"
+                placeholder="비밀번호"
+                id="pw"
+                name="pw">
+        </p>
+        <p>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox"  name="chkIdSave" id="chkIdSave" value="1">
+            <label class="form-check-label" for="flexCheckDefault">
+                아이디 저장하기
+            </label>
+        </div>
+        </p>
+        <button type="submit" class="btn btn-primary form-control">로그인</button>
 
 
     </div>
