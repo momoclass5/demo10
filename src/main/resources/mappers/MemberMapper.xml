@@ -10,4 +10,18 @@
     <select id="login" resultType="MemberDto">
     select * from tb_member where id=#{id} and pw=#{pw}
     </select>
-</mapper>
+
+  <!-- insertMember --> 
+
+  <insert id="insertMember">
+    insert into tb_member (m_no, id, pw, name) 
+                values (seq_tb_member.nextval, #{id}, #{pw}, #{name})
+  </insert>
+
+  <!-- selectCheckId --> 
+
+  <select id="selectCheckId">
+    select count(*) from tb_member where id=#{id}
+  </select>
+
+  </mapper>

@@ -1,5 +1,6 @@
 package com.example.demo10.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -32,5 +33,11 @@ public class MemberMapperTest {
         member.setPw("USER");
         MemberDto loginMember = mapper.login(member);
         assertNull(loginMember);
+    }
+
+    @Test
+    void testSelectCheckId() {
+        int res = mapper.selectCheckId("USER01");
+        assertEquals(1, res);
     }
 }

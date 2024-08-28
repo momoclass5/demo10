@@ -140,13 +140,23 @@ public class memberController {
     }
 
     @PostMapping("/registerAction")
-    public String postMethodName(MemberDto member) {
+    public String postMethodName(MemberDto member, Model model) {
         log.info("/registerAction");
         log.info("id : " + member.getId());
         log.info("pw : " + member.getPw());
         log.info("name : " + member.getName());
-
-        return "/member/register";
+        int res = service.insertMember(member);
+        if (res > 0) {
+            // 입력성공 메세지 출력후 로그인 페이지로
+            model.addAttribute("msg", "로그인후 이용이 가능합니다.");
+            model.addAttribute("url", "/member/login");
+        } else {
+            // 입력실패 메세지 출력후 뒤로가기
+            model.addAttribute("msg", "입력중 예외가 발생 하였습니다. \n관리자에게 문의해주세요.");
+        }
+        // 메세지를 출력후 원하는 페이지로이동
+        // 만약 페이지가 없다면 뒤로가기
+        return "/common/msg";
     }
 
 }
