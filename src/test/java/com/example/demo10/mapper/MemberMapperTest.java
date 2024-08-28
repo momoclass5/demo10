@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.demo10.dto.MemberDto;
 
@@ -16,6 +17,9 @@ public class MemberMapperTest {
 
     @Autowired
     MemberMapper mapper;
+
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @Test
     void testLogin() {
@@ -38,6 +42,24 @@ public class MemberMapperTest {
     @Test
     void testSelectCheckId() {
         int res = mapper.selectCheckId("USER01");
+        assertEquals(1, res);
+    }
+
+    @Test
+    void testUpdatepw() {
+        // 아이디로 비밀번호를 조회
+        MemberDto member = new MemberDto();
+        member.setId("id");
+
+        // 원래 비밀번호를 조회
+        MemberDto loginMember = mapper.login(member);
+
+        // 암호화된 비밀번호 입력
+        String encodePw = encoder.encode(loginMember.getPw());
+        loginMember.setPw(encodePw);
+
+        int res = mapper.updatePw(loginMember);
+
         assertEquals(1, res);
     }
 }

@@ -38,8 +38,10 @@ dependencies {
     implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '23.5.0.24.07'
     // https://mvnrepository.com/artifact/com.oracle.ojdbc/orai18n
     implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
-	    // https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1
+	// https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1
     implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+	implementation 'org.springframework.security:spring-security-core:6.3.3'
 }
 
 tasks.named('test') {

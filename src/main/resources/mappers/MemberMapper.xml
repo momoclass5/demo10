@@ -7,8 +7,9 @@
     <!-- login --> 
 
     <!--resultType의 패키지 정보는 application.property파일에 등록되어 있어 생략이 가능-->
+    <!--비밀번호 암호화 이후 로그인 로직 변경-->
     <select id="login" resultType="MemberDto">
-    select * from tb_member where id=#{id} and pw=#{pw}
+    select * from tb_member where id=#{id}
     </select>
 
   <!-- insertMember --> 
@@ -23,5 +24,12 @@
   <select id="selectCheckId">
     select count(*) from tb_member where id=#{id}
   </select>
+
+  <!-- updatePw --> 
+
+  <update id="updatePw">
+  update tb_member set pw=#{pw} where id=#{id}
+  </update>
+
 
   </mapper>
