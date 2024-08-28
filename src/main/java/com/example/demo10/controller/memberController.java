@@ -62,8 +62,8 @@ public class memberController {
 
     // 로그인 페이지로 이동
     @GetMapping("/register")
-    public String register() {
-        return "/member/register";
+    public void register() {
+        // return "/member/register";
     }
 
     // 로그인 처리
@@ -137,6 +137,16 @@ public class memberController {
         session.invalidate();
 
         return "redirect:/member/login";
+    }
+
+    @PostMapping("/registerAction")
+    public String postMethodName(MemberDto member) {
+        log.info("/registerAction");
+        log.info("id : " + member.getId());
+        log.info("pw : " + member.getPw());
+        log.info("name : " + member.getName());
+
+        return "/member/register";
     }
 
 }
