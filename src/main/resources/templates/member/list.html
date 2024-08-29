@@ -50,7 +50,8 @@
                 </div>
             </nav>
         </header>
-        <main>
+        <!-- th:width 변수를 선언하여 값을 대입-->
+        <main th:with="list=${map.list}, pageDto=${map.pageDto}">
             <!--타이틀-->
             <p><h2>회원목록</h2></p>
 
@@ -98,17 +99,18 @@
 
                 </tbody>
             </table>
-            <div th:text="${pageDto}"></div>
+            <div th:text="${map.pageDto}"></div>
             <!--페이지네이션-->
             <nav aria-label="...">
                 <ul class="pagination justify-content-center">
                 <!--앞으로가기 링크-->
-                <li class="page-item disabled">
-                    <!--특수문자 입력 자음+한자키(컨트롤키)-->
-                    <a class="page-link">◀</a>
-                </li>
-
-                <th:block th:each="index:${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
+                <th:block th:if="${pageDto.prev}">
+                    <li class="page-item">
+                        <!--특수문자 입력 자음+한자키(컨트롤키)-->
+                        <a class="page-link" th:onclick="go([[${pageDto.startPage-1}]])">◀</a>
+                    </li>
+                </th:block>
+                <th:block th:each="index:${#numbers.sequence(map.pageDto.startPage, map.pageDto.endPage)}">
                     <!--페이지 숫자 링크
                     active : 현재페이지를 알려주기위해 추가하는 class 속성 -->
                     <li class="page-item ">
@@ -121,9 +123,11 @@
                 </th:block>
                 
                 <!--뒤로가기 링크-->
-                <li class="page-item">
-                    <a class="page-link" href="#">▶</a>
-                </li>
+                <th:block th:if="${pageDto.next}">
+                    <li class="page-item">
+                        <a class="page-link" th:onclick="go([[${pageDto.endPage+1}]])">▶</a>
+                    </li>
+                </th:block>
                 </ul>
             </nav>
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo10.dto.BookDto;
+import com.example.demo10.dto.PageDto;
 import com.example.demo10.dto.SelectDto;
 import com.example.demo10.service.BookService;
 
@@ -30,6 +31,8 @@ public class BookController {
     public String list(SelectDto selectDto, Model model) {
         model.addAttribute("list",
                 service.selectBookListPageing(selectDto));
+
+        model.addAttribute("pageDto", new PageDto(selectDto, 111));
         return "book/list";
     }
 

@@ -1,12 +1,15 @@
 package com.example.demo10.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo10.dto.MemberDto;
+import com.example.demo10.dto.PageDto;
 import com.example.demo10.dto.SelectDto;
 import com.example.demo10.mapper.MemberMapper;
 
@@ -54,8 +57,20 @@ public class MemberService {
         return mapper.selectCheckId(id);
     }
 
-    public List<MemberDto> selectMemberList(SelectDto selectDto) {
-        return mapper.selectMemberList(selectDto);
+    public Map<String, Object> selectMemberList(SelectDto selectDto) {
+        Map<String, Object> map = new HashMap();
+
+        // 리스트 조회
+        List<MemberDto> list = mapper.selectMemberList(selectDto);
+        // 페이지 블럭을 그리기 위해 총건수를 조회
+        int totalCnt = mapper.selectTotalCnt();
+
+        // 페이지 블럭을 그리는 객체를 생성
+        PageDto pageDto = new PageDto(selectDto, totalCnt);
+        map.put("list", list);
+        map.put("pageDto", pageDto);
+
+        return map;
     }
 
 }

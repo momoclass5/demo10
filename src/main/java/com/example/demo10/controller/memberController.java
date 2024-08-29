@@ -2,6 +2,7 @@ package com.example.demo10.controller;
 
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -164,10 +165,12 @@ public class memberController {
 
     @GetMapping("/list")
     public String selectList(Model model, SelectDto selectDto) {
+        log.info("selectDto : " + selectDto);
+
         // 데이터베이스에서 사용자 목록을 조회
-        List<MemberDto> list = service.selectMemberList(selectDto);
-        model.addAttribute("list", list);
-        model.addAttribute("pageDto", new PageDto(selectDto, 101));
+        Map<String, Object> map = service.selectMemberList(selectDto);
+        model.addAttribute("map", map);
+
         return "/member/list";
     }
 

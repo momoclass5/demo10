@@ -21,4 +21,6 @@ public interface MemberMapper {
 
     List<MemberDto> selectMemberList(SelectDto selectDto);
 
+    int selectTotalCnt();
+
 }

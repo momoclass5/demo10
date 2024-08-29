@@ -52,4 +52,14 @@
 
   </select>
 
+  <!-- selectTotalCnt --> 
+
+  <select id="selectTotalCnt">
+  select count(*) from tb_member
+  </select>
+
+
+
+
+  
   </mapper>
