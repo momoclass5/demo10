@@ -1,10 +1,13 @@
 package com.example.demo10.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo10.dto.MemberDto;
+import com.example.demo10.dto.SelectDto;
 import com.example.demo10.mapper.MemberMapper;
 
 @Service
@@ -49,6 +52,10 @@ public class MemberService {
 
     public int selectCheckId(String id) {
         return mapper.selectCheckId(id);
+    }
+
+    public List<MemberDto> selectMemberList(SelectDto selectDto) {
+        return mapper.selectMemberList(selectDto);
     }
 
 }

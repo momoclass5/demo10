@@ -1,6 +1,7 @@
 package com.example.demo10.controller;
 
 import java.net.http.HttpResponse;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo10.dto.MemberDto;
+import com.example.demo10.dto.SelectDto;
 import com.example.demo10.service.MemberService;
 
 import jakarta.servlet.http.Cookie;
@@ -157,6 +159,15 @@ public class memberController {
         // 메세지를 출력후 원하는 페이지로이동
         // 만약 페이지가 없다면 뒤로가기
         return "/common/msg";
+    }
+
+    @GetMapping("/list")
+    public String selectList(Model model, SelectDto selectDto) {
+        // 데이터베이스에서 사용자 목록을 조회
+        List<MemberDto> list = service.selectMemberList(selectDto);
+        model.addAttribute("list", list);
+
+        return "/member/list";
     }
 
 }

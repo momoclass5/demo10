@@ -11,6 +11,15 @@
         text-align:right;
       }
     </style>
+    
+    <script th:inline="javascript">
+      let msg = [[${msg}]];
+      console.log("msg", msg)
+      if(msg != null){
+          // 메세지창 띄우기
+          alert(msg);
+      }
+    </script>
   </head>
   <body>
     <h1>도서목록</h1>

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.demo10.dto.BookDto;
+import com.example.demo10.dto.SelectDto;
 
 @Mapper
 public interface BookMapper {
@@ -22,4 +23,6 @@ public interface BookMapper {
 
     @Delete("delete from tb_book where b_no = #{b_no}")
     public int deleteBook(String b_no);
+
+    public List<BookDto> selectBookListPageing(SelectDto selectDto);
 }

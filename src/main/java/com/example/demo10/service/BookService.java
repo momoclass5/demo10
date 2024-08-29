@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo10.dto.BookDto;
+import com.example.demo10.dto.SelectDto;
 import com.example.demo10.mapper.BookMapper;
 
 @Service
@@ -23,5 +24,9 @@ public class BookService {
 
     public int deleteBook(String b_no) {
         return mapper.deleteBook(b_no);
+    }
+
+    public Object selectBookListPageing(SelectDto selectDto) {
+        return mapper.selectBookListPageing(selectDto);
     }
 }

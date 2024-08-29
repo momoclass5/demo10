@@ -11,7 +11,6 @@ public class BookDto {
     private String title;
     private String author;
     private String price;
-    private String p_no;
     private String rentyn;
     private String delyn;
     private String regdate;

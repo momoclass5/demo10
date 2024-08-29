@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 목록</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        main{
+            /* border: 1px solid black; */
+            /* width: 80%;
+            margin: 0 auto; */
+            /* 테두리 안쪽 여백 */
+            /* padding-left: 30px;
+            padding-right: 30px; */
+            /* 테두리 바깥쪽 여백 */
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+    </style>
+    <script>
+        // 페이지번호를 파라메터로 받아서 요청
+        function go(pageNo){
+            // 페이지번호 설정
+            searchForm.pageNo.value=pageNo;
+            // 폼 전송
+            searchForm.submit();
+        }
+    </script>
+</head>
+<body>
+
+    <div>
+        <header>
+            <!--네비게이션바-->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                <a class="navbar-brand" href="#">도서관</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="#">도서목록</a>
+                    <a class="nav-link" href="#">회원목록</a>
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </div>
+                </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!--타이틀-->
+            <p><h2>회원목록</h2></p>
+
+            <!--검색-->
+            <form name="searchForm" action="/member/list" method="get">
+                <hr>
+                <!-- model에 저장하는경우에 : 이름 -->
+                <!-- 파라메터로 전달 한 경우(쿼리스트링) : param.이름 -->
+                <!-- 파라메터가 비어 있는 경우 기본값을 주는 방법 : ?:-->
+                pageNo: <input type="text" name="pageNo" value="1" id="pageNo" th:value="${param.pageNo?:'1'}">
+                amount: <input type="text" name="amount" value="10" id="amount" th:value="${param.amount?:'10'}">
+                <!--selectbox로 수정-->
+                <br>searchField: <input type="text" name="searchField" value="1" id="searchField">
+                searchWord: <input type="text" name="searchWord" value="10" id="searchWord">
+                <br><button>조회</button>
+                <hr>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">사번</th>
+                    <th scope="col">아이디</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">가입일</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                <!--게시물의 갯수만큼 반복-->
+                <!--타임리프의 if else 문장-->
+                <th:block th:if="${#lists.isEmpty(list)}">
+                    <tr><td colspan="4">사용자가 없습니다.</td></tr>
+                </th:block>
+                <th:block th:unless="${#lists.isEmpty(list)}">
+                    <th:block th:each="member:${list}">
+                        <tr>
+                            <th scope="row" th:text="${member.m_no}"></th>
+                            <td th:text="${member.id}"></td>
+                            <td th:text="${member.name}"></td>
+                            <td th:text="${member.regdate}"></td>
+                        </tr>
+                    </th:block>
+                </th:block>
+                
+
+                </tbody>
+            </table>
+            
+            <!--페이지네이션-->
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                
+                
+
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item" aria-current="page">
+                    <a class="page-link" href="javascript:go(2)">2</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="javascript:go(3)">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+                </ul>
+            </nav>
+
+        </main>
+        <footer>
+            <hr>
+            2024.08
+        </footer>
+    </div>
+
+
+    
+    
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
