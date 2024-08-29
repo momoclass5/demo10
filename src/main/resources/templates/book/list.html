@@ -82,7 +82,12 @@
 
       
 
-
+<!-- 페이지블럭의 시작번호~끝번호 까지 반복해서 버튼을 출력-->
+<th:block th:each="index:${#numbers.sequence(1, 10)}">
+  <li th:class="${pageNo.toString() == index.toString() ? 'page-item active' : 'page-item'}">
+      <a class="page-link" th:text="${index}" th:onclick="go([[${index}]])"></a>        
+  </li>
+</th:block>
 
 
 

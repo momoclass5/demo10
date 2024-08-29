@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo10.dto.MemberDto;
+import com.example.demo10.dto.PageDto;
 import com.example.demo10.dto.SelectDto;
 import com.example.demo10.service.MemberService;
 
@@ -166,7 +167,7 @@ public class memberController {
         // 데이터베이스에서 사용자 목록을 조회
         List<MemberDto> list = service.selectMemberList(selectDto);
         model.addAttribute("list", list);
-
+        model.addAttribute("pageDto", new PageDto(selectDto, 101));
         return "/member/list";
     }
 
